@@ -4,7 +4,7 @@ import traceback
 
 
 def __get_cookie(verbose: bool = True) -> str:
-  """Get encrypted content of the cookie"""
+  """Get ciphertext"""
   resp = requests.get("http://aes.cryptohack.org/flipping_cookie/get_cookie/")
   cookie: str = resp.json()["cookie"]
 
@@ -15,11 +15,12 @@ def __get_cookie(verbose: bool = True) -> str:
 
 
 def __new_iv(iv: bytes, msg: str, tampered_msg: str, verbose: bool = True) -> bytes:
-  """Leverage the associative property of XOR operation to calculate how the IV
-  should be change for the XOR operation to return 'tampered_msg' instead of 'msg'.
-  This function assumes that the 16-byte block starts with 'msg', i.e., no prefix.
-  'msg' and 'tampered_msg' should be the same size.
+  """Leverage the associative property of XOR operations to calculate how the IV
+  should be changed so that the XORing result of the first block returns the content
+  of 'tampered_msg' instead of the original message ('msg').
+  This function assumes that the 16-byte block starts with no prefix.
   """
+  # msg and tampered_msg should be the same size.
   if len(msg) != len(tampered_msg):
     raise Exception("'msg' and 'tampered_msg' are not the same size")
 
