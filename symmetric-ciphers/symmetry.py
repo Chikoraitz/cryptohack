@@ -28,8 +28,8 @@ def __encrypt_flag() -> str:
   return resp.json()["ciphertext"]
 
 
-def exploit(verbose: bool = True) -> str:
-  """
+def challenge_solution(verbose: bool = True) -> str:
+  """OFB mode is XOR symmetric, meaning that encryption and decryption are exactly the same
   """
   ciphertext: str = __encrypt_flag()
   iv: str = ciphertext[:32]
