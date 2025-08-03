@@ -25,8 +25,7 @@ def ecb_padding_attack(verbose: bool = True) -> str:
   """
   flag: str = "crypto{"
   guess_char: str = ""
-  char_space: str = '_'+'@'+'}'+string.digits + string.ascii_lowercase + string.ascii_uppercase
-  guess_char: str = ''
+  char_space: str = '_' + '@' + '}' + string.digits + string.ascii_lowercase + string.ascii_uppercase
 
   while guess_char != '}':
     payload: str = (('1') * (__aes_blocks(2) - len(flag) - 1))
